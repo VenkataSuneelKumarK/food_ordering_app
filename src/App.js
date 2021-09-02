@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from 'react-redux';
 import classes from "./App.module.scss";
 import Cart from "./Components/Cart/Cart";
 
@@ -8,7 +9,8 @@ import CartProvider from "./Store/CartProvider";
 
 function App() {
     const [showCart, setShowCart] = useState(false);
-
+    const totalAmount = useSelector(state => state.totalAmount);
+    
     const showCartHandler = () => {
         setShowCart(true);
     };
@@ -23,6 +25,7 @@ function App() {
                 {showCart && <Cart onCloseCart={hideCartHandler} />}
                 <Header onShowCart={showCartHandler} />
                 <Meals />
+                <div>totalAmount: {totalAmount}</div>
             </CartProvider>
         </div>
     );

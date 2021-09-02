@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import CartContext from "../../Store/cart-context";
 import Button from "../UI/Button/Button";
 import Modal from "../UI/Modal/Modal";
@@ -7,6 +8,8 @@ import CartItem from "./CartItem/CartItem";
 import Checkout from "./Checkout/Checkout";
 
 const Cart = props => {
+    const storeCartItems = useSelector(state => state.cartItems);
+    const totalAmount = useSelector(state => state.totalAmount);
     const [isCheckout, setCheckout] = useState(false);
     const [isSubmitting, setSumbitting] = useState(false);
     const [didSubmit, setDidSubmit] = useState(false);
@@ -34,7 +37,19 @@ const Cart = props => {
         cartContext.clearCart();
         //const responseData = await response.json();
     };
-    const cartItems = cartContext.items.map(item => (
+    // const cartItems = cartContext.items.map(item => (
+    //     <CartItem
+    //         key={item.id}
+    //         id={item.id}
+    //         price={item.price}
+    //         name={item.name}
+    //         amount={item.amount}
+    //         description={item.description}
+    //     >
+    //         {item.name}
+    //     </CartItem>
+    // ));
+    const cartItems = storeCartItems.map(item => (
         <CartItem
             key={item.id}
             id={item.id}
@@ -46,7 +61,8 @@ const Cart = props => {
             {item.name}
         </CartItem>
     ));
-    const hasItems = cartContext.items.length > 0;
+    // const hasItems = cartContext.items.length > 0;
+    const hasItems = storeCartItems.length > 0;
     const modalActions = (
         <div className={classes.actions}>
             <Button className={classes["button--alt"]} onClick={props.onCloseCart}>
@@ -63,7 +79,9 @@ const Cart = props => {
         <>
             <ul className={classes.cartItems}>{cartItems}</ul>
             <div className={classes.total}>
-                <span>Total Amount</span> <span>{cartContext.totalAmount}</span>
+                <span>Total Amount</span> 
+                {/* <span>{cartContext.totalAmount}</span> */}
+                <span>{totalAmount}</span>
             </div>
             {isCheckout && (
                 <Checkout onConfirm={submitOrderHandler} onCancel={props.onCloseCart} />

@@ -1,6 +1,7 @@
 import CartContext from "./cart-context";
 
 import React, { useReducer } from "react";
+import { useDispatch } from "react-redux";
 
 const defaultCartState = {
     items: [],
@@ -72,22 +73,26 @@ const cartReducer = (state, action) => {
     console.log("ADD_ITEM::::last", state);
     return { ...state };
 };
+
 const CartProvider = props => {
     const [cartState, cartDispatch] = useReducer(cartReducer, defaultCartState);
-
+    const dispatch = useDispatch();
     const addItemToCartHandler = item => {
         console.log("item", item);
-        cartDispatch({ type: "ADD_ITEM", item: item });
+        // cartDispatch({ type: "ADD_ITEM", item: item });
+        dispatch({ type: "ADD_ITEM", item: item });
     };
 
     const removeItemFromCartHandler = id => {
         console.log("id", id);
-        cartDispatch({ type: "REMOVE_ITEM", id: id });
+        // cartDispatch({ type: "REMOVE_ITEM", id: id });
+        dispatch({ type: "REMOVE_ITEM", id: id });
     };
 
     const clearCartHandler = () => {
         console.log("clear cart");
-        cartDispatch({ type: "CLEAR_CART" });
+        // cartDispatch({ type: "CLEAR_CART" });
+        dispatch({ type: "CLEAR_CART" });
     };
     const cartContext = {
         items: [...cartState.items],
