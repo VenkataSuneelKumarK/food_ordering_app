@@ -7,6 +7,20 @@
     height: 48vh;
 }
 
+.availableFoods::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.availableFoods::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(241, 82, 82, 0.3);
+}
+
+.availableFoods::-webkit-scrollbar-thumb {
+    background-color: #c14a4a;
+    border-radius: 2rem;
+    outline: 1px solid #8dbdee;
+}
+
 .availableFoods ul {
     list-style: none;
     margin: 0;
