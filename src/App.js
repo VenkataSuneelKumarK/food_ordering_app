@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
+import React, { useState } from "react";
+// import { useSelector } from 'react-redux';
 import classes from "./App.module.scss";
 import Cart from "./Components/Cart/Cart";
 
@@ -8,27 +8,26 @@ import Meals from "./Components/Meals/Meals";
 import CartProvider from "./Store/CartProvider";
 
 function App() {
-    const [showCart, setShowCart] = useState(false);
-    const totalAmount = useSelector(state => state.totalAmount);
-    
-    const showCartHandler = () => {
-        setShowCart(true);
-    };
+  const [showCart, setShowCart] = useState(false);
+  // const totalAmount = useSelector(state => state.totalAmount);
 
-    const hideCartHandler = () => {
-        setShowCart(false);
-    };
+  const showCartHandler = () => {
+    setShowCart(true);
+  };
 
-    return (
-        <div className={classes.KVS_Food}>
-            <CartProvider>
-                {showCart && <Cart onCloseCart={hideCartHandler} />}
-                <Header onShowCart={showCartHandler} />
-                <Meals />
-                <div>totalAmount: {totalAmount}</div>
-            </CartProvider>
-        </div>
-    );
+  const hideCartHandler = () => {
+    setShowCart(false);
+  };
+
+  return (
+    <div className={classes.KVS_Food}>
+      <CartProvider>
+        {showCart && <Cart onCloseCart={hideCartHandler} />}
+        <Header onShowCart={showCartHandler} />
+        <Meals />
+      </CartProvider>
+    </div>
+  );
 }
 
 export default App;

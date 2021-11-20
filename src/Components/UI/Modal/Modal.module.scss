@@ -1,8 +1,8 @@
 .modal {
     position: fixed;
-    top: 20vh;
+    top: 12vh;
     left: 5%;
-    width: 90%;
+    width: 86%;
     background-color: white;
     padding: 1rem;
     border-radius: 14px;
@@ -34,7 +34,6 @@
         opacity: 0;
         transform: translateY(-3rem);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);

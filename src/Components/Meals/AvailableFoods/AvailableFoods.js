@@ -34,70 +34,72 @@ import MealItem from "../MealItem/MealItem";
 ];*/
 
 const AvailableFoods = () => {
-    const [foods, setFoods] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-    const [isError, setError] = useState(false);
-    useEffect(() => {
-        const fetchFoods = async () => {
-            //setLoading(true);  --> not required as we initialized with true and this effect run only once
-            const response = await fetch(
-                "https://foodorder-e71c7-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json"
-            );
+  const [foods, setFoods] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
+  useEffect(() => {
+    const fetchFoods = async () => {
+      //setLoading(true);  --> not required as we initialized with true and this effect run only once
+      const response = await fetch("https://foodorder-e71c7-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json");
 
-            if (!response.ok) {
-                throw new Error("Something went wrong");
-            }
-            const responseData = await response.json();
-            const loadedFoods = [];
-            for (let key in responseData) {
-                loadedFoods.push({
-                    id: key,
-                    ...responseData[key]
-                });
-            }
-            setFoods(loadedFoods);
-            setLoading(false);
-        };
-
-        fetchFoods().catch(error => {
-            setError(true);
-            setLoading(false);
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      const responseData = await response.json();
+      const loadedFoods = [];
+      for (let key in responseData) {
+        loadedFoods.push({
+          id: key,
+          ...responseData[key]
         });
-    }, []);
+      }
+      setFoods(loadedFoods);
+      setLoading(false);
+    };
 
-    if (isLoading) {
-        return (
-            <section className={classes.foodsLoading}>
-                <p>Loading...</p>
-            </section>
+    fetchFoods().catch(error => {
+      setError(true);
+      setLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return (<
+            section className={classes.foodsLoading} >
+      <
+            p > Loading... < /p> <
+            /section>
         );
     }
 
-    if (isError) {
-        return (
-            <section className={classes.error}>
-                <p>Something went wrong, Please try again later</p>
-            </section>
-        );
+        if (isError) {
+        return ( <
+            section className={classes.error} >
+          <
+            p > Something went wrong, Please
+            try again later < /p> <
+            /section>
+            );
     }
 
-    const foodsList = foods.map(food => (
-        <MealItem
-            key={food.id}
-            id={food.id}
-            name={food.name}
-            description={food.description}
-            price={food.price}
-            chef={food.chef}
-        />
-    ));
-    return (
-        <section className={classes.availableFoods}>
-            <Card>
-                <ul>{foodsList}</ul>
-            </Card>
-        </section>
-    );
+    const foodsList = foods.map(food => ( <
+              MealItem key={food.id}
+              id={food.id}
+              name={food.name}
+              description={food.description}
+              price={food.price}
+              chef={food.chef}
+            />
+            ));
+            return ( <
+        section className={classes.availableFoods} >
+              <
+        Card >
+                <
+        ul > {foodsList} < /ul> <
+        /Card> <
+        /section>
+                  );
 };
 
-export default AvailableFoods;
+                  export default AvailableFoods;
